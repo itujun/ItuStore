@@ -1,27 +1,149 @@
 import { StickyNavbar } from '../components/Fragments/Navbar';
-import { Typography, Card } from '@material-tailwind/react';
+import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react';
 
 export const ProductsPage = () => {
   return (
-    <div className="max-h-[768px] w-[calc(100%-0)] ">
+    <div className="max-h-[768px] w-[calc(100%-0)] mb-96">
       <StickyNavbar />
-      <div className="mx-auto max-w-screen-md py-4">
-        <Card className="mb-12 overflow-hidden">
-          <img
-            alt="nature"
-            className="h-[32rem] w-full object-cover object-center"
-            src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80"
-          />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-10/12 mx-auto">
+        <Card className="w-auto">
+          <CardHeader shadow={false} floated={false} className="h-60">
+            <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" alt="card-image" className="h-full w-full object-cover" />
+          </CardHeader>
+          <CardBody>
+            <div className="mb-2 flex items-center justify-between">
+              <Typography color="blue-gray" className="font-medium">
+                Apple AirPods
+              </Typography>
+              <Typography color="blue-gray" className="font-medium">
+                $95.00
+              </Typography>
+            </div>
+            <Typography variant="small" color="gray" className="font-normal opacity-75">
+              With plenty of talk and listen time, voice-activated Siri access, and an available wireless charging case.
+            </Typography>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100">
+              Add to Cart
+            </Button>
+          </CardFooter>
         </Card>
-        <Typography variant="h2" color="blue-gray" className="mb-2">
-          What is Material Tailwind
-        </Typography>
-        <Typography color="gray" className="font-normal">
-          Can you help me out? you will get a lot of free exposure doing this can my website be in english?. There is too much white space do less with more, so that will be a conversation piece can you rework to make the pizza look more
-          delicious other agencies charge much lesser can you make the blue bluer?. I think we need to start from scratch can my website be in english?, yet make it sexy i&apos;ll pay you in a week we don&apos;t need to pay upfront i hope
-          you understand can you make it stand out more?. Make the font bigger can you help me out? you will get a lot of free exposure doing this that&apos;s going to be a chunk of change other agencies charge much lesser. Are you busy
-          this weekend? I have a new project with a tight deadline that&apos;s going to be a chunk of change. There are more projects lined up charge extra the next time.
-        </Typography>
+        <Card className="w-auto">
+          <CardHeader shadow={false} floated={false} className="h-60">
+            <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" alt="card-image" className="h-full w-full object-cover" />
+          </CardHeader>
+          <CardBody>
+            <div className="mb-2 flex items-center justify-between">
+              <Typography color="blue-gray" className="font-medium">
+                Apple AirPods
+              </Typography>
+              <Typography color="blue-gray" className="font-medium">
+                $95.00
+              </Typography>
+            </div>
+            <Typography variant="small" color="gray" className="font-normal opacity-75">
+              With plenty of talk and listen time, voice-activated Siri access, and an available wireless charging case.
+            </Typography>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100">
+              Add to Cart
+            </Button>
+          </CardFooter>
+        </Card>
+        <Card className="w-auto">
+          <CardHeader shadow={false} floated={false} className="h-60">
+            <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" alt="card-image" className="h-full w-full object-cover" />
+          </CardHeader>
+          <CardBody>
+            <div className="mb-2 flex items-center justify-between">
+              <Typography color="blue-gray" className="font-medium">
+                Apple AirPods
+              </Typography>
+              <Typography color="blue-gray" className="font-medium">
+                $95.00
+              </Typography>
+            </div>
+            <Typography variant="small" color="gray" className="font-normal opacity-75">
+              With plenty of talk and listen time, voice-activated Siri access, and an available wireless charging case.
+            </Typography>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100">
+              Add to Cart
+            </Button>
+          </CardFooter>
+        </Card>
+        <Card className="w-auto">
+          <CardHeader shadow={false} floated={false} className="h-60">
+            <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" alt="card-image" className="h-full w-full object-cover" />
+          </CardHeader>
+          <CardBody>
+            <div className="mb-2 flex items-center justify-between">
+              <Typography color="blue-gray" className="font-medium">
+                Apple AirPods
+              </Typography>
+              <Typography color="blue-gray" className="font-medium">
+                $95.00
+              </Typography>
+            </div>
+            <Typography variant="small" color="gray" className="font-normal opacity-75">
+              With plenty of talk and listen time, voice-activated Siri access, and an available wireless charging case.
+            </Typography>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100">
+              Add to Cart
+            </Button>
+          </CardFooter>
+        </Card>
+        <Card className="w-auto">
+          <CardHeader shadow={false} floated={false} className="h-60">
+            <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" alt="card-image" className="h-full w-full object-cover" />
+          </CardHeader>
+          <CardBody>
+            <div className="mb-2 flex items-center justify-between">
+              <Typography color="blue-gray" className="font-medium">
+                Apple AirPods
+              </Typography>
+              <Typography color="blue-gray" className="font-medium">
+                $95.00
+              </Typography>
+            </div>
+            <Typography variant="small" color="gray" className="font-normal opacity-75">
+              With plenty of talk and listen time, voice-activated Siri access, and an available wireless charging case.
+            </Typography>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100">
+              Add to Cart
+            </Button>
+          </CardFooter>
+        </Card>
+        <Card className="w-auto">
+          <CardHeader shadow={false} floated={false} className="h-60">
+            <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" alt="card-image" className="h-full w-full object-cover" />
+          </CardHeader>
+          <CardBody>
+            <div className="mb-2 flex items-center justify-between">
+              <Typography color="blue-gray" className="font-medium">
+                Apple AirPods
+              </Typography>
+              <Typography color="blue-gray" className="font-medium">
+                $95.00
+              </Typography>
+            </div>
+            <Typography variant="small" color="gray" className="font-normal opacity-75">
+              With plenty of talk and listen time, voice-activated Siri access, and an available wireless charging case.
+            </Typography>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100">
+              Add to Cart
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );
