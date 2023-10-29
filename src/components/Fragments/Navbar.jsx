@@ -1,48 +1,57 @@
-import { Navbar, MobileNav, Typography, Button, IconButton } from '@material-tailwind/react';
-import { useEffect, useState } from 'react';
+import { Navbar, Typography, Button, IconButton, Badge, Collapse, Avatar, MenuItem, MenuList, Menu, MenuHandler } from '@material-tailwind/react';
+import { useState } from 'react';
+import { ShoppingCartIcon } from '@heroicons/react/24/solid';
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('resize', () => window.innerWidth >= 960 && setOpenNav(false));
-  }, []);
-
-  const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography as="li" variant="small" color="white" className="p-1 font-bold text-sm">
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
-      </Typography>
-      <Typography as="li" variant="small" color="white" className="p-1 font-bold text-sm">
-        <a href="#" className="flex items-center">
-          Account
-        </a>
-      </Typography>
-      <Typography as="li" variant="small" color="white" className="p-1 font-bold text-sm">
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography as="li" variant="small" color="white" className="p-1 font-bold text-sm">
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
-      </Typography>
-    </ul>
-  );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none opacity-[.9] px-4 py-2 lg:px-12 lg:py-4" color="light-blue" variant="gradient">
+      <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none opacity-[.9] px-4 py-2 lg:px-12 lg:py-4" color="light-blue" variant="gradient">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography as="a" href="#" variant="h5" className="cursor-pointer py-1.5 font-bold" color="white">
             ItuStore
           </Typography>
           <div className="flex items-center gap-4">
-            <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
+              <Menu placement="bottom-end" open={isMenuOpen} handler={setIsMenuOpen}>
+                <MenuHandler>
+                  {/* <Badge content="5" className="mr-5 text-xs"> */}
+                  <IconButton variant="text" className={`mr-4 ${isMenuOpen ? 'bg-white' : ''} `}>
+                    <ShoppingCartIcon className="h-6 w-6" />
+                  </IconButton>
+                  {/* </Badge> */}
+                </MenuHandler>
+                <MenuList className="flex flex-col gap-2">
+                  <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
+                    <Avatar variant="circular" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
+                    <div className="flex flex-col gap-1">
+                      <Typography variant="small" color="gray" className="font-semibold">
+                        Tania send you a message
+                      </Typography>
+                      <Typography className="flex items-center gap-1 text-sm font-medium text-blue-gray-500">13 minutes ago</Typography>
+                    </div>
+                  </MenuItem>
+                  <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
+                    <Avatar variant="circular" alt="natali craig" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1061&q=80" />
+                    <div className="flex flex-col gap-1">
+                      <Typography variant="small" color="gray" className="font-semibold">
+                        Natali replied to your email.
+                      </Typography>
+                    </div>
+                  </MenuItem>
+                  <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
+                    <Avatar variant="circular" alt="paypal" src="https://dwglogo.com/wp-content/uploads/2016/08/PayPal_Logo_Icon.png" />
+                    <div className="flex flex-col gap-1">
+                      <Typography variant="small" color="gray" className="font-semibold">
+                        You&apos;ve received a payment.
+                      </Typography>
+                    </div>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+
               <Button variant="gradient" size="sm" className="hidden lg:flex" onClick={() => (window.location.href = '/login')}>
                 <span>Logout</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="ml-1 w-4 h-4">
@@ -63,8 +72,7 @@ export function StickyNavbar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
-          {navList}
+        <Collapse open={openNav}>
           <div className="flex items-center gap-x-1">
             <Button fullWidth variant="gradient" size="md" className="flex justify-center" onClick={() => (window.location.href = '/login')}>
               <span>Logout</span>
@@ -73,7 +81,7 @@ export function StickyNavbar() {
               </svg>
             </Button>
           </div>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </>
   );
