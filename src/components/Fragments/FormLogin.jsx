@@ -1,16 +1,31 @@
-import { Button, Input } from '@material-tailwind/react';
+import { Button, Input, Typography } from '@material-tailwind/react';
+import { login } from '../../services/auth.service';
+import { useState } from 'react';
 
 export const FormLogin = () => {
+  const [loginFailed, setLoginFailed] = useState('');
   const handleLogin = (e) => {
     e.preventDefault();
-    window.location.href = '/products';
+
+    if (!e.target.username.value) return setLoginFailed('Username is required');
+    if (!e.target.password.value) return setLoginFailed('Password is required');
+    const data = {
+      username: e.target.username.value,
+      password: e.target.password.value,
+    };
+    login(data, (status, res) => {
+      status ? (localStorage.setItem('token', res), (window.location.href = '/products')) : setLoginFailed(res);
+    });
   };
 
   return (
     <form action="" className="my-4" onSubmit={handleLogin}>
+      <Typography variant="small" color="red" className="text-center font-semibold mb-2">
+        {loginFailed}
+      </Typography>
       <div className="flex gap-6 flex-col">
-        <Input variant="outlined" label="Username" size="lg" color="light-blue" autoFocus />
-        <Input variant="outlined" label="Password" size="lg" color="light-blue" />
+        <Input variant="outlined" name="username" label="Username" size="lg" color="light-blue" autoFocus />
+        <Input variant="outlined" type="password" name="password" label="Password" size="lg" color="light-blue" />
       </div>
 
       <Button className="w-full flex items-center mt-4 gap-2 justify-center" variant="gradient" color="light-blue" size="sm" type="submit">
