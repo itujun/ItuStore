@@ -1,10 +1,18 @@
 import { Navbar, Typography, Button, IconButton, Badge, Collapse, Avatar, MenuItem, MenuList, Menu, MenuHandler } from '@material-tailwind/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/24/solid';
+import { getProducts } from '../../services/products.service';
 
-export function StickyNavbar() {
+export function StickyNavbar({ cart }) {
   const [openNav, setOpenNav] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts((data) => {
+      setProducts(data);
+    });
+  }, []);
 
   return (
     <>
@@ -25,28 +33,63 @@ export function StickyNavbar() {
                 </MenuHandler>
                 <MenuList className="flex flex-col gap-2">
                   <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
-                    <Avatar variant="circular" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-                    <div className="flex flex-col gap-1">
+                    <Avatar variant="rounded" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
+                    <div className="flex flex-col gap-0">
                       <Typography variant="small" color="gray" className="font-semibold">
                         Tania send you a message
                       </Typography>
-                      <Typography className="flex items-center gap-1 text-sm font-medium text-blue-gray-500">13 minutes ago</Typography>
+                      <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
+                        $12.99
+                      </Typography>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <Button size="sm" color="light-blue" variant="gradient" className="py-1">
+                        <b>-</b>
+                      </Button>
+                      <span className="px-2">1</span>
+                      <Button size="sm" color="light-blue" variant="gradient" className="py-1">
+                        <b>+</b>
+                      </Button>
                     </div>
                   </MenuItem>
                   <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
-                    <Avatar variant="circular" alt="natali craig" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1061&q=80" />
-                    <div className="flex flex-col gap-1">
+                    <Avatar variant="rounded" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
+                    <div className="flex flex-col gap-0">
                       <Typography variant="small" color="gray" className="font-semibold">
-                        Natali replied to your email.
+                        Tania send you a message
                       </Typography>
+                      <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
+                        $12.99
+                      </Typography>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <Button size="sm" color="light-blue" variant="gradient" className="py-1">
+                        <b>-</b>
+                      </Button>
+                      <span className="px-2">1</span>
+                      <Button size="sm" color="light-blue" variant="gradient" className="py-1">
+                        <b>+</b>
+                      </Button>
                     </div>
                   </MenuItem>
                   <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
-                    <Avatar variant="circular" alt="paypal" src="https://dwglogo.com/wp-content/uploads/2016/08/PayPal_Logo_Icon.png" />
-                    <div className="flex flex-col gap-1">
+                    <Avatar variant="rounded" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
+                    <div className="flex flex-col gap-0">
                       <Typography variant="small" color="gray" className="font-semibold">
-                        You&apos;ve received a payment.
+                        Tania send you a message
                       </Typography>
+                      <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
+                        $12.99
+                      </Typography>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <Button size="sm" color="light-blue" variant="gradient" className="py-1">
+                        <b>-</b>
+                      </Button>
+                      <span className="px-2">1</span>
+                      <Button size="sm" color="light-blue" variant="gradient" className="py-1">
+                        <b>+</b>
+                      </Button>
                     </div>
                   </MenuItem>
                 </MenuList>
