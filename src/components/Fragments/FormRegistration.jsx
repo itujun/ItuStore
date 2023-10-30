@@ -1,4 +1,5 @@
-import { Button, Input } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
+import { InputLabel } from '../Elements/InputLabel';
 
 export const FormRegistration = () => {
   const handleRegistration = (e) => {
@@ -9,10 +10,10 @@ export const FormRegistration = () => {
   return (
     <form action="" className="my-4" onSubmit={handleRegistration}>
       <div className="flex gap-6 flex-col">
-        <Input variant="outlined" label="Fullname" size="lg" color="light-blue" autoFocus />
-        <Input variant="outlined" label="Username" size="lg" color="light-blue" />
-        <Input variant="outlined" label="Password" size="lg" color="light-blue" />
-        <Input variant="outlined" label="Confirm Password" size="lg" color="light-blue" />
+        <InputLabel name="fullname" label="Fullname" autoFocus />
+        <InputLabel name="username" label="Username" />
+        <InputLabel name="password" label="Password" />
+        <InputLabel name="confirmpassword" label="Confirm Password" />
       </div>
       <Button className="w-full flex items-center mt-4 gap-2 justify-center" variant="gradient" color="light-blue" size="sm" type="submit">
         Registration

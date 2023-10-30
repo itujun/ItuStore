@@ -5,11 +5,20 @@ import { DarkModeContext } from '../../contexts/DarkMode';
 
 export const AuthLayout = ({ children, title }) => {
   const [isDarkMode, setIsDarkMode] = useContext(DarkModeContext);
+
   return (
-    <div className={`flex justify-center items-center min-h-screen ${isDarkMode ? 'bg-blue-gray-800' : ''}`}>
-      <div className="w-full max-w-xs">
-        <IconButton size="sm" variant="text" className={`relative -top-32 -right-36 ${isDarkMode ? 'text-white' : ''}`} onClick={() => setIsDarkMode(!isDarkMode)}>
-          {isDarkMode ? (
+    <div className={`flex flex-col box-border min-h-screen ${isDarkMode === 'dark' ? 'bg-blue-gray-800' : ''}`}>
+      <div className="text-center mt-2">
+        <IconButton
+          size="sm"
+          variant="text"
+          className={` ${isDarkMode === 'dark' ? 'text-white' : ''}`}
+          onClick={() => {
+            localStorage.setItem('darkMode', isDarkMode === 'dark' ? 'light' : 'dark');
+            setIsDarkMode(localStorage.getItem('darkMode'));
+          }}
+        >
+          {isDarkMode === 'dark' ? (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
               <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
             </svg>
@@ -23,20 +32,24 @@ export const AuthLayout = ({ children, title }) => {
             </svg>
           )}
         </IconButton>
-        <div className={`w-full max-w-xs rounded-xl p-5 box-border ${isDarkMode ? 'bg-blue-gray-600' : ''}`}>
-          <Typography variant="h3" color={`${isDarkMode ? 'inherit' : 'light-blue'}`} className={`font-bold ${isDarkMode ? 'text-light-blue-300' : ''}`} textGradient>
-            {title}
-          </Typography>
-          <Typography as="span" variant="small" className={` text-slate-500 mt-1 mb-6 ${isDarkMode ? 'text-white' : ''}`}>
-            Welcome, please enter your details
-          </Typography>
-          {children}
-          <Typography as="span" variant="small" className={`mt-6 text-center ${isDarkMode ? 'text-white' : ''}`}>
-            {title === 'Login' ? `Don't have an account?` : 'Already have an account?'}{' '}
-            <Link to={title === 'Login' ? '/registration' : '/login'} className={`font-bold ${isDarkMode ? 'text-light-blue-300' : 'text-light-blue-500'}`}>
-              {title === 'Login' ? 'Register' : 'Login'}
-            </Link>
-          </Typography>
+      </div>
+      <div className={`flex justify-center min-h-[calc(100vh-50px)] items-center`}>
+        <div className="w-full max-w-xs">
+          <div className={`w-full max-w-xs rounded-xl p-5 box-border ${isDarkMode === 'dark' ? 'bg-blue-gray-600' : ''}`}>
+            <Typography variant="h3" color={`${isDarkMode ? 'inherit' : 'light-blue'}`} className={`font-bold ${isDarkMode ? 'text-light-blue-300' : ''}`} textGradient>
+              {title}
+            </Typography>
+            <Typography as="span" variant="small" className={` text-slate-500 mt-1 mb-6 ${isDarkMode === 'dark' ? 'text-white' : ''}`}>
+              Welcome, please enter your details
+            </Typography>
+            {children}
+            <Typography as="span" variant="small" className={`mt-6 text-center ${isDarkMode === 'dark' ? 'text-white' : ''}`}>
+              {title === 'Login' ? `Don't have an account?` : 'Already have an account?'}{' '}
+              <Link to={title === 'Login' ? '/registration' : '/login'} className={`font-bold ${isDarkMode === 'dark' ? 'text-light-blue-300' : 'text-light-blue-500'}`}>
+                {title === 'Login' ? 'Register' : 'Login'}
+              </Link>
+            </Typography>
+          </div>
         </div>
       </div>
     </div>

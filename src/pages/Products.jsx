@@ -2,11 +2,12 @@ import { StickyNavbar } from '../components/Fragments/Navbar';
 import CardProduct from '../components/Fragments/CardProduct';
 import { useEffect, useState } from 'react';
 import { getProducts } from '../services/products.service';
+import { useLogin } from '../hooks/useLogin';
 
 export const ProductsPage = () => {
+  useLogin();
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-
   useEffect(() => {
     setCart(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
   }, []);

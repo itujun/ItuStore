@@ -1,7 +1,8 @@
-import { Button, Input, Typography } from '@material-tailwind/react';
+import { Button, Typography } from '@material-tailwind/react';
 import { login } from '../../services/auth.service';
 import { useContext, useState } from 'react';
 import { DarkModeContext } from '../../contexts/DarkMode';
+import { InputLabel } from '../Elements/InputLabel';
 
 export const FormLogin = () => {
   const [loginFailed, setLoginFailed] = useState('');
@@ -22,12 +23,12 @@ export const FormLogin = () => {
 
   return (
     <form action="" className="my-4" onSubmit={handleLogin}>
-      <Typography variant="small" color="red" className="text-center font-semibold mb-2">
+      <Typography variant="small" color={isDarkMode ? 'inherit' : 'red'} className={`text-center font-semibold mb-3 ${isDarkMode ? 'text-red-100 ' : ''} `}>
         {loginFailed}
       </Typography>
       <div className="flex gap-6 flex-col">
-        <Input variant="outlined" name="username" label="Username" size="lg" color={`${isDarkMode ? 'white' : 'light-blue'}`} className={`${isDarkMode ? 'text-white focus:ring' : 'text-black'}`} autoFocus />
-        <Input variant="outlined" type="password" name="password" label="Password" size="lg" color={`${isDarkMode ? 'white' : 'light-blue'}`} className={`${isDarkMode ? 'text-white focus:ring' : 'text-black'}`} />
+        <InputLabel name="username" label="Username" autoFocus />
+        <InputLabel name="password" label="Password" />
       </div>
 
       <Button className="w-full flex items-center mt-4 gap-2 justify-center" variant="gradient" color="light-blue" size="sm" type="submit">
