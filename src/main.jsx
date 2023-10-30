@@ -8,7 +8,7 @@ import { ErrorPage } from './pages/404.jsx';
 import { RegistrationPage } from './pages/Registration.jsx';
 import { ProductsPage } from './pages/Products.jsx';
 import { ThemeProvider } from '@material-tailwind/react';
-import DarkModeContextProvider from './contexts/DarkMode.jsx';
+import DarkModeContextProvider from './contexts/DarkModeContext.jsx';
 
 const router = createBrowserRouter([
   {

@@ -1,7 +1,7 @@
 import { IconButton, Typography } from '@material-tailwind/react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { DarkModeContext } from '../../contexts/DarkMode';
+import { DarkModeContext } from '../../contexts/DarkModeContext';
 
 export const AuthLayout = ({ children, title }) => {
   const [isDarkMode, setIsDarkMode] = useContext(DarkModeContext);

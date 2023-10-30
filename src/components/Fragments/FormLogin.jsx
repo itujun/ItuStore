@@ -1,7 +1,7 @@
 import { Button, Typography } from '@material-tailwind/react';
 import { login } from '../../services/auth.service';
 import { useContext, useState } from 'react';
-import { DarkModeContext } from '../../contexts/DarkMode';
+import { DarkModeContext } from '../../contexts/DarkModeContext';
 import { InputLabel } from '../Elements/InputLabel';
 
 export const FormLogin = () => {
@@ -23,12 +23,12 @@ export const FormLogin = () => {
 
   return (
     <form action="" className="my-4" onSubmit={handleLogin}>
-      <Typography variant="small" color={isDarkMode ? 'inherit' : 'red'} className={`text-center font-semibold mb-3 ${isDarkMode ? 'text-red-100 ' : ''} `}>
+      <Typography variant="small" color={isDarkMode === 'dark' ? 'inherit' : 'red'} className={`text-center font-semibold mb-3 ${isDarkMode === 'dark' ? 'text-red-100 ' : ''} `}>
         {loginFailed}
       </Typography>
       <div className="flex gap-6 flex-col">
         <InputLabel name="username" label="Username" autoFocus />
-        <InputLabel name="password" label="Password" />
+        <InputLabel name="password" type="password" label="Password" />
       </div>
 
       <Button className="w-full flex items-center mt-4 gap-2 justify-center" variant="gradient" color="light-blue" size="sm" type="submit">

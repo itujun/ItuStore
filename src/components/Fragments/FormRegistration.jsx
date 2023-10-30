@@ -12,8 +12,8 @@ export const FormRegistration = () => {
       <div className="flex gap-6 flex-col">
         <InputLabel name="fullname" label="Fullname" autoFocus />
         <InputLabel name="username" label="Username" />
-        <InputLabel name="password" label="Password" />
-        <InputLabel name="confirmpassword" label="Confirm Password" />
+        <InputLabel name="password" type="password" label="Password" />
+        <InputLabel name="confirmpassword" type="password" label="Confirm Password" />
       </div>
       <Button className="w-full flex items-center mt-4 gap-2 justify-center" variant="gradient" color="light-blue" size="sm" type="submit">
         Registration
