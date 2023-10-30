@@ -1,7 +1,8 @@
-import { Navbar, Typography, Button, IconButton, Badge, Collapse, Avatar, MenuItem, MenuList, Menu, MenuHandler } from '@material-tailwind/react';
-import { createElement, useState } from 'react';
+import { Navbar, Typography, Button, IconButton, Avatar, MenuItem, MenuList, Menu, MenuHandler, Chip } from '@material-tailwind/react';
+import { createElement, useEffect, useState } from 'react';
 import { ChevronDownIcon, Cog6ToothIcon, InboxArrowDownIcon, LifebuoyIcon, PowerIcon, ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import { useLogin } from '../../hooks/useLogin';
+import { getProducts } from '../../services/products.service';
 
 const profileMenuItems = [
   {
@@ -74,10 +75,7 @@ function ProfileMenu() {
   );
 }
 
-export function StickyNavbar({ cart }) {
-  // const [openNav, setOpenNav] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+export function StickyNavbar() {
   return (
     <>
       <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none opacity-[.9] px-4 py-2 lg:px-12 lg:py-4" color="light-blue" variant="gradient">
@@ -85,7 +83,7 @@ export function StickyNavbar({ cart }) {
           <Logo />
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
-              <CartMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+              <CartMenu />
               <ProfileMenu />
             </div>
             {/* <IconHumberger openNav={openNav} setOpenNav={setOpenNav} /> */}
@@ -104,77 +102,112 @@ function Logo() {
   );
 }
 
-function CartMenu({ isMenuOpen, setIsMenuOpen }) {
+function CartMenu() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [totalCart, setTotalCart] = useState(0);
+  const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts((data) => {
+      setProducts(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    setCart(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
+  }, []);
+
+  useEffect(() => {
+    const sum = cart.reduce((acc, item) => acc + item.qty, 0);
+    setTotalCart(sum);
+  }, [cart]);
+
+  function handleDeleteCart(id) {
+    const ItemInCart = cart.find((item) => item.id === id);
+    if (ItemInCart.qty === 1) {
+      const newCart = cart.filter((item) => item.id !== id);
+      setCart(newCart);
+      localStorage.setItem('cart', JSON.stringify(newCart));
+    } else if (ItemInCart.qty > 1) {
+      const newCart = cart.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            qty: item.qty - 1,
+          };
+        }
+        return item;
+      });
+      setCart(newCart);
+      localStorage.setItem('cart', JSON.stringify(newCart));
+    }
+  }
+
+  function handleAddCart(id) {
+    const ItemInCart = cart.find((item) => item.id === id);
+    if (ItemInCart) {
+      const newCart = cart.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            qty: item.qty + 1,
+          };
+        }
+        return item;
+      });
+      setCart(newCart);
+      localStorage.setItem('cart', JSON.stringify(newCart));
+    }
+  }
+
   return (
     <Menu placement="bottom-end" open={isMenuOpen} handler={setIsMenuOpen}>
+      <Chip size="sm" value={totalCart} color="amber" className={`rounded-full relative -mr-12 mb-6 ${isMenuOpen ? 'z-10' : ''}`} />
       <MenuHandler>
-        {/* <Badge content="5" className="mr-5 text-xs"> */}
         <IconButton variant="text" className={`mr-4 ${isMenuOpen ? 'bg-white' : ''} `}>
           <ShoppingCartIcon className="h-6 w-6" />
         </IconButton>
-        {/* </Badge> */}
       </MenuHandler>
       <MenuList className="flex flex-col gap-2">
-        <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
-          <Avatar variant="rounded" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          <div className="flex flex-col gap-0">
-            <Typography variant="small" color="gray" className="font-semibold">
-              Tania send you a message
-            </Typography>
-            <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
-              $12.99
-            </Typography>
-          </div>
-          <div className="flex justify-center items-center">
-            <Button size="sm" color="light-blue" variant="gradient" className="py-1">
-              <b>-</b>
-            </Button>
-            <span className="px-2">1</span>
-            <Button size="sm" color="light-blue" variant="gradient" className="py-1">
-              <b>+</b>
-            </Button>
-          </div>
-        </MenuItem>
-        <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
-          <Avatar variant="rounded" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          <div className="flex flex-col gap-0">
-            <Typography variant="small" color="gray" className="font-semibold">
-              Tania send you a message
-            </Typography>
-            <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
-              $12.99
-            </Typography>
-          </div>
-          <div className="flex justify-center items-center">
-            <Button size="sm" color="light-blue" variant="gradient" className="py-1">
-              <b>-</b>
-            </Button>
-            <span className="px-2">1</span>
-            <Button size="sm" color="light-blue" variant="gradient" className="py-1">
-              <b>+</b>
-            </Button>
-          </div>
-        </MenuItem>
-        <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
-          <Avatar variant="rounded" alt="tania andrew" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          <div className="flex flex-col gap-0">
-            <Typography variant="small" color="gray" className="font-semibold">
-              Tania send you a message
-            </Typography>
-            <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
-              $12.99
-            </Typography>
-          </div>
-          <div className="flex justify-center items-center">
-            <Button size="sm" color="light-blue" variant="gradient" className="py-1">
-              <b>-</b>
-            </Button>
-            <span className="px-2">1</span>
-            <Button size="sm" color="light-blue" variant="gradient" className="py-1">
-              <b>+</b>
-            </Button>
-          </div>
-        </MenuItem>
+        {cart.map((item) => {
+          const prod = products.find((p) => p.id === item.id);
+          if (!prod) return null;
+          return (
+            <MenuItem key={item.id} className="flex items-center max-w-md mr-2 gap-4 py-2 pl-2 pr-8">
+              <Avatar variant="rounded" alt={prod.title} src={prod.image} />
+              <div className="flex flex-col gap-0 w-10/12">
+                <Typography variant="small" color="gray" className="font-semibold">
+                  {prod.title}
+                </Typography>
+                <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
+                  ${prod.price}
+                </Typography>
+              </div>
+              <div className="flex justify-center items-center ml-2 w-2/12">
+                <div
+                  className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-s-xl text-white hover:opacity-90"
+                  onClick={(e) => {
+                    handleDeleteCart(item.id);
+                    e.stopPropagation();
+                  }}
+                >
+                  &minus;
+                </div>
+                <span className="px-2">{item.qty}</span>
+                <div
+                  className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-e-xl text-white hover:opacity-90"
+                  onClick={(e) => {
+                    handleAddCart(item.id);
+                    e.stopPropagation();
+                  }}
+                >
+                  +
+                </div>
+              </div>
+            </MenuItem>
+          );
+        })}
       </MenuList>
     </Menu>
   );

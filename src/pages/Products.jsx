@@ -7,10 +7,6 @@ import { useLogin } from '../hooks/useLogin';
 export const ProductsPage = () => {
   useLogin();
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
-  useEffect(() => {
-    setCart(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
-  }, []);
 
   useEffect(() => {
     getProducts((data) => {
