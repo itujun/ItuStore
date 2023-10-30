@@ -1,9 +1,11 @@
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { login } from '../../services/auth.service';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { DarkModeContext } from '../../contexts/DarkMode';
 
 export const FormLogin = () => {
   const [loginFailed, setLoginFailed] = useState('');
+  const [isDarkMode] = useContext(DarkModeContext);
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -24,8 +26,8 @@ export const FormLogin = () => {
         {loginFailed}
       </Typography>
       <div className="flex gap-6 flex-col">
-        <Input variant="outlined" name="username" label="Username" size="lg" color="light-blue" autoFocus />
-        <Input variant="outlined" type="password" name="password" label="Password" size="lg" color="light-blue" />
+        <Input variant="outlined" name="username" label="Username" size="lg" color={`${isDarkMode ? 'white' : 'light-blue'}`} className={`${isDarkMode ? 'text-white focus:ring' : 'text-black'}`} autoFocus />
+        <Input variant="outlined" type="password" name="password" label="Password" size="lg" color={`${isDarkMode ? 'white' : 'light-blue'}`} className={`${isDarkMode ? 'text-white focus:ring' : 'text-black'}`} />
       </div>
 
       <Button className="w-full flex items-center mt-4 gap-2 justify-center" variant="gradient" color="light-blue" size="sm" type="submit">
