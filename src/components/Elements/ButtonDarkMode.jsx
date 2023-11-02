@@ -2,13 +2,13 @@ import { IconButton } from '@material-tailwind/react';
 import { useContext } from 'react';
 import { DarkModeContext } from '../../contexts/DarkModeContext';
 
-export const ButtonDarkMode = () => {
+export const ButtonDarkMode = ({ className }) => {
   const [isDarkMode, setIsDarkMode] = useContext(DarkModeContext);
   return (
     <IconButton
       size="sm"
       variant="text"
-      className={` ${isDarkMode === 'dark' ? 'text-white' : ''}`}
+      className={` ${className} ${isDarkMode === 'dark' ? 'text-white' : ''}`}
       onClick={() => {
         localStorage.setItem('darkMode', isDarkMode === 'dark' ? 'light' : 'dark');
         setIsDarkMode(localStorage.getItem('darkMode'));

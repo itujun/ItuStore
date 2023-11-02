@@ -1,11 +1,13 @@
 import { StickyNavbar } from '../components/Fragments/Navbar';
 import CardProduct from '../components/Fragments/CardProduct';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getProducts } from '../services/products.service';
 import { useLogin } from '../hooks/useLogin';
+import { DarkModeContext } from '../contexts/DarkModeContext';
 
 export const ProductsPage = () => {
   useLogin();
+  const [isDarkMode] = useContext(DarkModeContext);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -15,9 +17,9 @@ export const ProductsPage = () => {
   }, []);
 
   return (
-    <div className="max-h-[768px] w-[calc(100%-0)] mb-96">
+    <div className={` w-[calc(100%-0)] ${isDarkMode === 'dark' ? 'bg-blue-gray-800' : ''}`}>
       <StickyNavbar />
-      <div className="mt-20 lg:mt-28 box-border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-10/12 mx-auto">
+      <div className="pt-20 lg:pt-28 box-border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-10/12 mx-auto">
         {products.map((product) => (
           <CardProduct key={product.id}>
             <CardProduct.Header image={product.image} />

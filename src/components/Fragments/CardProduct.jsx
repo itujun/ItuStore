@@ -1,7 +1,10 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react';
 import { useCart } from '../../hooks/useCart';
+import { DarkModeContext } from '../../contexts/DarkModeContext';
+import { useContext } from 'react';
 const CardProduct = ({ children }) => {
-  return <Card className="w-auto flex flex-col justify-between border">{children}</Card>;
+  const [isDarkMode] = useContext(DarkModeContext);
+  return <Card className={`w-auto flex flex-col justify-between border ${isDarkMode === 'dark' ? 'bg-blue-gray-500 border-0' : ''}`}>{children}</Card>;
 };
 
 const Header = ({ image }) => {
@@ -14,17 +17,18 @@ const Header = ({ image }) => {
 
 const Body = (props) => {
   const { title, price, children } = props;
+  const [isDarkMode] = useContext(DarkModeContext);
   return (
     <CardBody>
       <div className="mb-2 flex flex-col justify-between">
-        <Typography color="blue-gray" className="font-medium">
+        <Typography color={`${isDarkMode === 'dark' ? 'white' : 'blue-gray'}`} className="font-medium">
           {title.substring(0, 45)}...
         </Typography>
-        <Typography color="green" className="font-bold">
+        <Typography color={`${isDarkMode === 'dark' ? 'amber' : 'green'}`} className="font-bold">
           ${price}
         </Typography>
       </div>
-      <Typography variant="small" color="gray" className="font-normal opacity-75">
+      <Typography variant="small" color={`${isDarkMode === 'dark' ? 'white' : 'blue-gray'}`} className="font-normal opacity-75">
         {children.substring(0, 100)}...
       </Typography>
     </CardBody>

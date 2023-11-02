@@ -14,7 +14,7 @@ export const AuthLayout = ({ children, title }) => {
       </div>
       <div className={`flex justify-center min-h-[calc(100vh-50px)] items-center`}>
         <div className="w-full max-w-xs">
-          <div className={`w-full max-w-xs rounded-xl p-5 box-border ${isDarkMode === 'dark' ? 'bg-blue-gray-600' : ''}`}>
+          <div className={`w-full max-w-xs rounded-xl p-5 box-border ${isDarkMode === 'dark' ? 'bg-blue-gray-500' : ''}`}>
             <Typography variant="h3" color={`${isDarkMode ? 'inherit' : 'light-blue'}`} className={`font-bold ${isDarkMode ? 'text-light-blue-300' : ''}`} textGradient>
               {title}
             </Typography>
