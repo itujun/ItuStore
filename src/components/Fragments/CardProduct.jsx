@@ -2,35 +2,40 @@ import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from '@mat
 import { useCart } from '../../hooks/useCart';
 import { DarkModeContext } from '../../contexts/DarkModeContext';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 const CardProduct = ({ children }) => {
   const [isDarkMode] = useContext(DarkModeContext);
   return <Card className={`w-auto flex flex-col justify-between border ${isDarkMode === 'dark' ? 'bg-blue-gray-500 border-0' : ''}`}>{children}</Card>;
 };
 
-const Header = ({ image }) => {
+const Header = ({ image, id }) => {
   return (
     <CardHeader shadow={false} floated={false} className="h-52">
-      <img src={image} alt="card-image" className="w-full object-cover" />
+      <Link to={`/products/${id}`}>
+        <img src={image} alt="card-image" className="w-full object-cover" />
+      </Link>
     </CardHeader>
   );
 };
 
 const Body = (props) => {
-  const { title, price, children } = props;
+  const { title, price, children, id } = props;
   const [isDarkMode] = useContext(DarkModeContext);
   return (
     <CardBody>
-      <div className="mb-2 flex flex-col justify-between">
-        <Typography color={`${isDarkMode === 'dark' ? 'white' : 'blue-gray'}`} className="font-medium">
-          {title.substring(0, 45)}...
+      <Link to={`/products/${id}`}>
+        <div className="mb-2 flex flex-col justify-between">
+          <Typography color={`${isDarkMode === 'dark' ? 'white' : 'blue-gray'}`} className="font-medium">
+            {title.substring(0, 45)}...
+          </Typography>
+          <Typography color={`${isDarkMode === 'dark' ? 'amber' : 'green'}`} className="font-bold">
+            ${price}
+          </Typography>
+        </div>
+        <Typography variant="small" color={`${isDarkMode === 'dark' ? 'white' : 'blue-gray'}`} className="font-normal opacity-75">
+          {children.substring(0, 100)}...
         </Typography>
-        <Typography color={`${isDarkMode === 'dark' ? 'amber' : 'green'}`} className="font-bold">
-          ${price}
-        </Typography>
-      </div>
-      <Typography variant="small" color={`${isDarkMode === 'dark' ? 'white' : 'blue-gray'}`} className="font-normal opacity-75">
-        {children.substring(0, 100)}...
-      </Typography>
+      </Link>
     </CardBody>
   );
 };

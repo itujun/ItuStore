@@ -6,6 +6,7 @@ import { getProducts } from '../../services/products.service';
 import { useCart } from '../../hooks/useCart';
 import { ButtonDarkMode } from '../Elements/ButtonDarkMode';
 import { DarkModeContext } from '../../contexts/DarkModeContext';
+import { Link } from 'react-router-dom';
 
 export function StickyNavbar() {
   return (
@@ -28,9 +29,11 @@ export function StickyNavbar() {
 
 function Logo() {
   return (
-    <Typography as="a" href="#" variant="h5" className="cursor-pointer py-1.5 font-bold" color="white">
-      ItuStore
-    </Typography>
+    <Link to="/products">
+      <Typography as="h6" variant="h5" className="cursor-pointer py-1.5 font-bold" color="white">
+        ItuStore
+      </Typography>
+    </Link>
   );
 }
 

@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { LoginPage } from './pages/Login.jsx';
+import { LoginPage } from './pages/Auth/Login.jsx';
 import { ErrorPage } from './pages/404.jsx';
-import { RegistrationPage } from './pages/Registration.jsx';
-import { ProductsPage } from './pages/Products.jsx';
+import { RegistrationPage } from './pages/Auth/Registration.jsx';
+import { ProductsPage } from './pages/Product/Products.jsx';
 import { ThemeProvider } from '@material-tailwind/react';
 import DarkModeContextProvider from './contexts/DarkModeContext.jsx';
 import { CartProvider } from './contexts/CartProductContext.jsx';
+import { DetailProductPage } from './pages/Product/DetailProduct.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: '/products',
     element: <ProductsPage />,
+  },
+  {
+    path: '/products/:id',
+    element: <DetailProductPage />,
   },
 ]);
 
