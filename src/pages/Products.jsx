@@ -24,7 +24,7 @@ export const ProductsPage = () => {
             <CardProduct.Body title={product.title} price={product.price}>
               {product.description}
             </CardProduct.Body>
-            <CardProduct.Footer />
+            <CardProduct.Footer id={product.id} />
           </CardProduct>
         ))}
         ;

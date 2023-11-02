@@ -3,6 +3,7 @@ import { createElement, useEffect, useState } from 'react';
 import { ChevronDownIcon, Cog6ToothIcon, InboxArrowDownIcon, LifebuoyIcon, PowerIcon, ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import { useLogin } from '../../hooks/useLogin';
 import { getProducts } from '../../services/products.service';
+import { useCart } from '../../hooks/useCart';
 
 const profileMenuItems = [
   {
@@ -105,8 +106,8 @@ function Logo() {
 function CartMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [totalCart, setTotalCart] = useState(0);
-  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
+  const { cartState, dispatch } = useCart();
 
   useEffect(() => {
     getProducts((data) => {
@@ -114,52 +115,81 @@ function CartMenu() {
     });
   }, []);
 
-  useEffect(() => {
-    setCart(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
-  }, []);
+  // useEffect(() => {
+  //   setCart(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
+  // }, []);
+
+  const addToCart = (item) => {
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: item,
+    });
+    // const ItemInCart = cartState.data.find((i) => i.id === item);
+    // if (ItemInCart) {
+    //   const newCart = cartState.data.map((i) => {
+    //     if (i.id === item) {
+    //       return {
+    //         ...i,
+    //         qty: i.qty + 1,
+    //       };
+    //     }
+    //     return i;
+    //   });
+    //   cartState.data = newCart;
+    //   localStorage.setItem('cart', JSON.stringify(newCart));
+    //   console.log(cartState.data);
+    // }
+  };
+
+  const deleteFromCart = (item) => {
+    dispatch({
+      type: 'DELETE_CART',
+      payload: item,
+    });
+  };
 
   useEffect(() => {
-    const sum = cart.reduce((acc, item) => acc + item.qty, 0);
+    const sum = cartState.data.reduce((acc, item) => acc + item.qty, 0);
     setTotalCart(sum);
-  }, [cart]);
+  }, [cartState]);
 
-  function handleDeleteCart(id) {
-    const ItemInCart = cart.find((item) => item.id === id);
-    if (ItemInCart.qty === 1) {
-      const newCart = cart.filter((item) => item.id !== id);
-      setCart(newCart);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-    } else if (ItemInCart.qty > 1) {
-      const newCart = cart.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            qty: item.qty - 1,
-          };
-        }
-        return item;
-      });
-      setCart(newCart);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-    }
-  }
+  // function handleDeleteCart(id) {
+  //   const ItemInCart = cart.find((item) => item.id === id);
+  //   if (ItemInCart.qty === 1) {
+  //     const newCart = cart.filter((item) => item.id !== id);
+  //     setCart(newCart);
+  //     localStorage.setItem('cart', JSON.stringify(newCart));
+  //   } else if (ItemInCart.qty > 1) {
+  //     const newCart = cart.map((item) => {
+  //       if (item.id === id) {
+  //         return {
+  //           ...item,
+  //           qty: item.qty - 1,
+  //         };
+  //       }
+  //       return item;
+  //     });
+  //     setCart(newCart);
+  //     localStorage.setItem('cart', JSON.stringify(newCart));
+  //   }
+  // }
 
-  function handleAddCart(id) {
-    const ItemInCart = cart.find((item) => item.id === id);
-    if (ItemInCart) {
-      const newCart = cart.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            qty: item.qty + 1,
-          };
-        }
-        return item;
-      });
-      setCart(newCart);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-    }
-  }
+  // function handleAddCart(id) {
+  //   const ItemInCart = cart.find((item) => item.id === id);
+  //   if (ItemInCart) {
+  //     const newCart = cart.map((item) => {
+  //       if (item.id === id) {
+  //         return {
+  //           ...item,
+  //           qty: item.qty + 1,
+  //         };
+  //       }
+  //       return item;
+  //     });
+  //     setCart(newCart);
+  //     localStorage.setItem('cart', JSON.stringify(newCart));
+  //   }
+  // }
 
   return (
     <Menu placement="bottom-end" open={isMenuOpen} handler={setIsMenuOpen}>
@@ -169,8 +199,8 @@ function CartMenu() {
           <ShoppingCartIcon className="h-6 w-6" />
         </IconButton>
       </MenuHandler>
-      <MenuList className="flex flex-col gap-2">
-        {cart.map((item) => {
+      <MenuList className="flex flex-col gap-2 max-h-96">
+        {cartState.data.map((item) => {
           const prod = products.find((p) => p.id === item.id);
           if (!prod) return null;
           return (
@@ -188,8 +218,8 @@ function CartMenu() {
                 <div
                   className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-s-xl text-white hover:opacity-90"
                   onClick={(e) => {
-                    handleDeleteCart(item.id);
                     e.stopPropagation();
+                    deleteFromCart(item.id);
                   }}
                 >
                   &minus;
@@ -198,8 +228,8 @@ function CartMenu() {
                 <div
                   className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-e-xl text-white hover:opacity-90"
                   onClick={(e) => {
-                    handleAddCart(item.id);
                     e.stopPropagation();
+                    addToCart({ id: item.id, qty: 1 });
                   }}
                 >
                   +

@@ -9,6 +9,7 @@ import { RegistrationPage } from './pages/Registration.jsx';
 import { ProductsPage } from './pages/Products.jsx';
 import { ThemeProvider } from '@material-tailwind/react';
 import DarkModeContextProvider from './contexts/DarkModeContext.jsx';
+import { CartProvider } from './contexts/CartProductContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
       <DarkModeContextProvider>
-        <RouterProvider router={router} />
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
       </DarkModeContextProvider>
     </ThemeProvider>
   </React.StrictMode>

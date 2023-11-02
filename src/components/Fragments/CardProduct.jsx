@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react';
-
+import { useCart } from '../../hooks/useCart';
 const CardProduct = ({ children }) => {
   return <Card className="w-auto flex flex-col justify-between border">{children}</Card>;
 };
@@ -31,10 +31,24 @@ const Body = (props) => {
   );
 };
 
-const Footer = () => {
+const Footer = ({ id }) => {
+  const { dispatch } = useCart();
+  const addToCart = (item) => {
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: item,
+    });
+  };
   return (
     <CardFooter className="pt-0">
-      <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100">
+      <Button
+        ripple={false}
+        fullWidth={true}
+        variant="gradient"
+        color="light-blue"
+        className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100"
+        onClick={() => addToCart({ id, qty: 1 })}
+      >
         Add to Cart
       </Button>
     </CardFooter>
