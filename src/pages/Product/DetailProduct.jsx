@@ -31,8 +31,8 @@ export const DetailProductPage = () => {
         {Object.keys(product).length > 0 ? (
           <div className={`flex shadow-2xl lg:max-w-xl rounded-xl ${isDarkMode === 'dark' ? 'bg-blue-gray-500' : ''}`}>
             <div className="flex font-sans">
-              <div className="flex-none w-64 relative">
-                <img src={product.image} alt={product.title} className="absolute inset-0 w-full h-full object-cover rounded-s-lg " loading="lazy" />
+              <div className="flex-none relative w-36  ">
+                <img src={product.image} alt={product.title} className="absolute inset-0 w-full h-full object-cover object-center rounded-s-lg " loading="lazy" />
               </div>
               <form className="flex-auto p-6">
                 <div className="flex flex-wrap">
