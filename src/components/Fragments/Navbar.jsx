@@ -105,7 +105,6 @@ function Logo() {
 
 function CartMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [totalCart, setTotalCart] = useState(0);
   const [products, setProducts] = useState([]);
   const { cartState, dispatch } = useCart();
 
@@ -115,30 +114,11 @@ function CartMenu() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   setCart(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
-  // }, []);
-
   const addToCart = (item) => {
     dispatch({
       type: 'ADD_TO_CART',
       payload: item,
     });
-    // const ItemInCart = cartState.data.find((i) => i.id === item);
-    // if (ItemInCart) {
-    //   const newCart = cartState.data.map((i) => {
-    //     if (i.id === item) {
-    //       return {
-    //         ...i,
-    //         qty: i.qty + 1,
-    //       };
-    //     }
-    //     return i;
-    //   });
-    //   cartState.data = newCart;
-    //   localStorage.setItem('cart', JSON.stringify(newCart));
-    //   console.log(cartState.data);
-    // }
   };
 
   const deleteFromCart = (item) => {
@@ -148,96 +128,66 @@ function CartMenu() {
     });
   };
 
-  useEffect(() => {
-    const sum = cartState.data.reduce((acc, item) => acc + item.qty, 0);
-    setTotalCart(sum);
-  }, [cartState]);
-
-  // function handleDeleteCart(id) {
-  //   const ItemInCart = cart.find((item) => item.id === id);
-  //   if (ItemInCart.qty === 1) {
-  //     const newCart = cart.filter((item) => item.id !== id);
-  //     setCart(newCart);
-  //     localStorage.setItem('cart', JSON.stringify(newCart));
-  //   } else if (ItemInCart.qty > 1) {
-  //     const newCart = cart.map((item) => {
-  //       if (item.id === id) {
-  //         return {
-  //           ...item,
-  //           qty: item.qty - 1,
-  //         };
-  //       }
-  //       return item;
-  //     });
-  //     setCart(newCart);
-  //     localStorage.setItem('cart', JSON.stringify(newCart));
-  //   }
-  // }
-
-  // function handleAddCart(id) {
-  //   const ItemInCart = cart.find((item) => item.id === id);
-  //   if (ItemInCart) {
-  //     const newCart = cart.map((item) => {
-  //       if (item.id === id) {
-  //         return {
-  //           ...item,
-  //           qty: item.qty + 1,
-  //         };
-  //       }
-  //       return item;
-  //     });
-  //     setCart(newCart);
-  //     localStorage.setItem('cart', JSON.stringify(newCart));
-  //   }
-  // }
-
   return (
     <Menu placement="bottom-end" open={isMenuOpen} handler={setIsMenuOpen}>
-      <Chip size="sm" value={totalCart} color="amber" className={`rounded-full relative -mr-12 mb-6 ${isMenuOpen ? 'z-10' : ''}`} />
+      <Chip
+        size="sm"
+        value={cartState.data.length > 0 ? cartState.data.reduce((acc, item) => acc + item.qty, 0) : ''}
+        color="amber"
+        className={`rounded-full relative -mr-12 mb-6 ${isMenuOpen ? 'z-10' : ''} ${cartState.data.length > 0 ? '' : 'hidden'}`}
+      />
       <MenuHandler>
         <IconButton variant="text" className={`mr-4 ${isMenuOpen ? 'bg-white' : ''} `}>
           <ShoppingCartIcon className="h-6 w-6" />
         </IconButton>
       </MenuHandler>
       <MenuList className="flex flex-col gap-2 max-h-96">
-        {cartState.data.map((item) => {
-          const prod = products.find((p) => p.id === item.id);
-          if (!prod) return null;
-          return (
-            <MenuItem key={item.id} className="flex items-center max-w-md mr-2 gap-4 py-2 pl-2 pr-8">
-              <Avatar variant="rounded" alt={prod.title} src={prod.image} />
-              <div className="flex flex-col gap-0 w-10/12">
-                <Typography variant="small" color="gray" className="font-semibold">
-                  {prod.title}
-                </Typography>
-                <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
-                  ${prod.price}
-                </Typography>
-              </div>
-              <div className="flex justify-center items-center ml-2 w-2/12">
-                <div
-                  className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-s-xl text-white hover:opacity-90"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteFromCart(item.id);
-                  }}
-                >
-                  &minus;
+        {cartState.data.length > 0 ? (
+          cartState.data.map((item) => {
+            const prod = products.find((p) => p.id === item.id);
+            if (!prod) return null;
+            return (
+              <MenuItem key={item.id} className="flex items-center max-w-md mr-2 gap-4 py-2 pl-2 pr-8">
+                <Avatar variant="rounded" alt={prod.title} src={prod.image} />
+                <div className="flex flex-col gap-0 w-10/12">
+                  <Typography variant="small" color="gray" className="font-semibold mr-2">
+                    {prod.title}
+                  </Typography>
+                  <Typography className="flex items-center gap-1 text-sm font-bold" color="green">
+                    ${prod.price}
+                  </Typography>
                 </div>
-                <span className="px-2">{item.qty}</span>
-                <div
-                  className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-e-xl text-white hover:opacity-90"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    addToCart({ id: item.id, qty: 1 });
-                  }}
-                >
-                  +
+                <div className="flex justify-center items-center ml-2 w-2/12">
+                  <div
+                    className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-s-xl text-white hover:opacity-90"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteFromCart(item.id);
+                    }}
+                  >
+                    &minus;
+                  </div>
+                  <span className="px-2">{item.qty}</span>
+                  <div
+                    className="py-1 px-4 font-bold cursor-pointer bg-light-blue-500 rounded-e-xl text-white hover:opacity-90"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart({ id: item.id, qty: 1 });
+                    }}
+                  >
+                    +
+                  </div>
                 </div>
-              </div>
-            </MenuItem>
-          );
-        })}
+              </MenuItem>
+            );
+          })
+        ) : (
+          <MenuItem className="flex  items-center h-1">
+            <Typography as="span" variant="small" className="font-bold">
+              Cart is still empty 😕
+            </Typography>
+          </MenuItem>
+        )}
       </MenuList>
     </Menu>
   );
