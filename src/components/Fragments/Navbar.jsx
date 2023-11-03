@@ -11,12 +11,14 @@ import { useTotalPrice } from '../../hooks/useTotalPrice';
 import { useTotalPriceDispatch } from '../../hooks/useTotalPriceDispatch';
 
 export function StickyNavbar() {
+  const { cartState } = useCart();
+
   return (
     <>
       <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none opacity-[.9] px-4 py-2 lg:px-12 lg:py-4" color="light-blue" variant="gradient">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Logo />
-          <ButtonDarkMode className="ml-16" />
+          <ButtonDarkMode className={`ml-12 ${cartState.data.length > 0 ? 'ml-8' : ''}`} />
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
               <CartMenu />
@@ -156,7 +158,7 @@ function CartMenu() {
                       />
                     </svg>
                   </Button>
-                  <Button size="sm" color="amber" variant="gradient" className="w-full">
+                  <Button size="sm" color="amber" variant="gradient" className="w-full ">
                     Total Paid: <span className="text-green-700 font-bold">${total}</span>
                   </Button>
                 </MenuItem>
@@ -214,13 +216,7 @@ function ProfileMenu() {
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
         <Button variant="outlined" color="white" className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
-          <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-          />
+          <Avatar variant="circular" size="sm" alt="tania andrew" className="border border-gray-900 p-0.5" src="/Juna.jpg" />
           <Typography variant="small" className="normal-case font-medium mx-2">
             {username}
           </Typography>

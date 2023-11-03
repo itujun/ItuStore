@@ -27,9 +27,9 @@ export const DetailProductPage = () => {
   return (
     <>
       <StickyNavbar />
-      <div className={`flex justify-center w-100 min-h-screen items-center ${isDarkMode === 'dark' ? 'bg-blue-gray-900' : ''}`}>
+      <div className={`flex justify-center px-4 w-100 min-h-screen items-center ${isDarkMode === 'dark' ? 'bg-blue-gray-900' : ''}`}>
         {Object.keys(product).length > 0 ? (
-          <div className={`flex shadow-2xl h-fit my-28 max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl rounded-xl ${isDarkMode === 'dark' ? 'bg-blue-gray-500 shadow-light-blue-500' : ''}`}>
+          <div className={`flex shadow-2xl h-fit mt-20 mb-8 max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl rounded-xl ${isDarkMode === 'dark' ? 'bg-blue-gray-500 shadow-light-blue-500' : ''}`}>
             <div className="flex flex-col md:flex-row font-sans">
               <div className="md:w-6/12 lg:w-5/12 xl:w-4/12 flex items-center">
                 <img src={product.image} alt={product.title} className=" inset-0 w-full object-cover object-center rounded-s-lg " loading="lazy" />
