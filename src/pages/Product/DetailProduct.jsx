@@ -68,7 +68,7 @@ export const DetailProductPage = () => {
                       <Button variant="gradient" size="sm" color="amber" className="font-semibold rounded-md text-black" type="submit">
                         Buy now
                       </Button>
-                      <Button size="sm" variant="gradient" color="light-blue" className={`font-semibold rounded-md`} type="button" onClick={() => addToCart({ id, qty: 1 })}>
+                      <Button size="sm" variant="gradient" color="light-blue" className={`font-semibold rounded-md`} type="button" onClick={() => addToCart({ id: parseInt(id), qty: 1 })}>
                         Add to Cart
                       </Button>
                     </div>
