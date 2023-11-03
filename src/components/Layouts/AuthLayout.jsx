@@ -1,11 +1,42 @@
 import { Tooltip, Typography } from '@material-tailwind/react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DarkModeContext } from '../../contexts/DarkModeContext';
 import { ButtonDarkMode } from '../Elements/ButtonDarkMode';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AuthLayout = ({ children, title }) => {
   const [isDarkMode] = useContext(DarkModeContext);
+
+  const notify = () => {
+    toast.success('Logout successful!', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+  };
+
+  useEffect(() => {
+    return () => notify();
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('isLogout')) {
+      const timeoutId = setTimeout(() => {
+        localStorage.removeItem('isLogout');
+      }, 5000);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, []);
+
   localStorage.getItem('token') ? (window.location.href = '/products') : null;
 
   return (
@@ -70,6 +101,11 @@ export const AuthLayout = ({ children, title }) => {
           </div>
         </div>
       </div>
+      {localStorage.getItem('isLogout') === 'true' ? (
+        <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

@@ -9,6 +9,8 @@ import { DarkModeContext } from '../../contexts/DarkModeContext';
 import { Link } from 'react-router-dom';
 import { useTotalPrice } from '../../hooks/useTotalPrice';
 import { useTotalPriceDispatch } from '../../hooks/useTotalPriceDispatch';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function StickyNavbar() {
   const { cartState } = useCart();
@@ -48,6 +50,7 @@ function CartMenu() {
   const [isDarkMode] = useContext(DarkModeContext);
   const { total } = useTotalPrice();
   const dispatch = useTotalPriceDispatch();
+  const notify = () => toast('Wow so easy !');
 
   useEffect(() => {
     getProducts((data) => {
@@ -158,7 +161,8 @@ function CartMenu() {
                       />
                     </svg>
                   </Button>
-                  <Button size="sm" color="amber" variant="gradient" className="w-full ">
+                  <Button size="sm" color="amber" variant="gradient" className="w-full " onClick={notify}>
+                    <ToastContainer />
                     Total Paid: <span className="text-green-700 font-bold">${total}</span>
                   </Button>
                 </MenuItem>
@@ -210,6 +214,7 @@ function ProfileMenu() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.setItem('isLogout', true);
     window.location.href = '/login';
   };
 

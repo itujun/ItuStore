@@ -7,6 +7,7 @@ import { InputLabel } from '../Elements/InputLabel';
 export const FormLogin = () => {
   const [loginFailed, setLoginFailed] = useState('');
   const [isDarkMode] = useContext(DarkModeContext);
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -17,7 +18,13 @@ export const FormLogin = () => {
       password: e.target.password.value,
     };
     login(data, (status, res) => {
-      status ? (localStorage.setItem('token', res), (window.location.href = '/products')) : setLoginFailed(res);
+      if (status) {
+        localStorage.setItem('token', res);
+        localStorage.setItem('isLogin', true);
+        window.location.href = '/products';
+      } else {
+        setLoginFailed(res);
+      }
     });
   };
 
