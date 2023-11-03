@@ -33,7 +33,7 @@ export const ProductsPage = () => {
     if (localStorage.getItem('isLogin')) {
       const timeoutId = setTimeout(() => {
         localStorage.removeItem('isLogin');
-      }, 5000);
+      }, 3100);
       return () => {
         clearTimeout(timeoutId);
       };

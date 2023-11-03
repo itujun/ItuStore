@@ -30,7 +30,7 @@ export const AuthLayout = ({ children, title }) => {
     if (localStorage.getItem('isLogout')) {
       const timeoutId = setTimeout(() => {
         localStorage.removeItem('isLogout');
-      }, 5000);
+      }, 3100);
       return () => {
         clearTimeout(timeoutId);
       };
