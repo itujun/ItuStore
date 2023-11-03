@@ -204,6 +204,7 @@ function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode] = useContext(DarkModeContext);
   const username = useLogin();
+  console.info(username);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -218,7 +219,7 @@ function ProfileMenu() {
         <Button variant="outlined" color="white" className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
           <Avatar variant="circular" size="sm" alt="tania andrew" className="border border-gray-900 p-0.5" src="/Juna.jpg" />
           <Typography variant="small" className="normal-case font-medium mx-2">
-            {username}
+            Juna
           </Typography>
           <ChevronDownIcon strokeWidth={2.5} className={`h-3 w-3 transition-transform ${isMenuOpen ? 'rotate-180' : ''}`} />
         </Button>
