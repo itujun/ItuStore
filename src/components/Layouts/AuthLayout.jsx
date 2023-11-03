@@ -8,13 +8,13 @@ export const AuthLayout = ({ children, title }) => {
   const [isDarkMode] = useContext(DarkModeContext);
 
   return (
-    <div className={`flex flex-col box-border min-h-screen ${isDarkMode === 'dark' ? 'bg-blue-gray-800' : ''}`}>
+    <div className={`flex flex-col box-border min-h-screen ${isDarkMode === 'dark' ? 'bg-blue-gray-900' : ''}`}>
       <div className="text-center mt-2">
         <ButtonDarkMode />
       </div>
       <div className={`flex justify-center min-h-[calc(100vh-50px)] items-center`}>
         <div className="w-full max-w-xs">
-          <div className={`w-full max-w-xs rounded-xl p-5 box-border ${isDarkMode === 'dark' ? 'bg-blue-gray-500' : ''}`}>
+          <div className={`w-full max-w-xs rounded-xl shadow-2xl p-5 box-border ${isDarkMode === 'dark' ? 'bg-blue-gray-500 shadow-light-blue-500' : ''}`}>
             <Typography variant="h3" color={`${isDarkMode ? 'inherit' : 'light-blue'}`} className={`font-bold ${isDarkMode ? 'text-light-blue-300' : ''}`} textGradient>
               {title}
             </Typography>

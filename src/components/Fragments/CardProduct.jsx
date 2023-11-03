@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 const CardProduct = ({ children }) => {
   const [isDarkMode] = useContext(DarkModeContext);
-  return <Card className={`w-auto flex flex-col justify-between border ${isDarkMode === 'dark' ? 'bg-blue-gray-500 border-0' : ''}`}>{children}</Card>;
+  return <Card className={`w-auto flex flex-col shadow-lg justify-between border ${isDarkMode === 'dark' ? 'bg-blue-gray-500 border-0 shadow-light-blue-500' : ''}`}>{children}</Card>;
 };
 
 const Header = ({ image, id }) => {
@@ -50,14 +50,7 @@ const Footer = ({ id }) => {
   };
   return (
     <CardFooter className="pt-0">
-      <Button
-        ripple={false}
-        fullWidth={true}
-        variant="gradient"
-        color="light-blue"
-        className="text-white shadow-none hover:scale-105 hover:shadow-none hover:opacity-80 focus:scale-105 focus:shadow-none active:scale-100"
-        onClick={() => addToCart({ id, qty: 1 })}
-      >
+      <Button ripple={false} fullWidth={true} variant="gradient" color="light-blue" className="text-white  hover:scale-105 hover:opacity-80 focus:scale-105 active:scale-100" onClick={() => addToCart({ id, qty: 1 })}>
         Add to Cart
       </Button>
     </CardFooter>

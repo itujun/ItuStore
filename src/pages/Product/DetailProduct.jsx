@@ -29,7 +29,7 @@ export const DetailProductPage = () => {
       <StickyNavbar />
       <div className={`flex justify-center w-100 min-h-screen items-center ${isDarkMode === 'dark' ? 'bg-blue-gray-900' : ''}`}>
         {Object.keys(product).length > 0 ? (
-          <div className={`flex shadow-2xl h-fit my-28 max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl rounded-xl ${isDarkMode === 'dark' ? 'bg-blue-gray-500' : ''}`}>
+          <div className={`flex shadow-2xl h-fit my-28 max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl rounded-xl ${isDarkMode === 'dark' ? 'bg-blue-gray-500 shadow-light-blue-500' : ''}`}>
             <div className="flex flex-col md:flex-row font-sans">
               <div className="md:w-6/12 lg:w-5/12 xl:w-4/12 flex items-center">
                 <img src={product.image} alt={product.title} className=" inset-0 w-full object-cover object-center rounded-s-lg " loading="lazy" />
@@ -72,7 +72,12 @@ export const DetailProductPage = () => {
                         Add to Cart
                       </Button>
                     </div>
-                    <Button size="sm" className={`flex-none flex items-center justify-center  rounded-md text-slate-300 shadow border border-blue-gray-200 bg-transparent `} type="button" aria-label="Like">
+                    <Button
+                      size="sm"
+                      className={`flex-none flex items-center justify-center  rounded-md text-slate-300 shadow border border-blue-gray-200 bg-transparent ${isDarkMode === 'dark' ? 'hover:shadow-light-blue-500 hover:bg-white' : ''}`}
+                      type="button"
+                      aria-label="Like"
+                    >
                       <svg width="20" height="20" fill="currentColor" aria-hidden="true" className="text-red-600 h-5 w-5">
                         <path fillRule="evenodd" clipRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
                       </svg>
