@@ -11,6 +11,7 @@ import { ThemeProvider } from '@material-tailwind/react';
 import DarkModeContextProvider from './contexts/DarkModeContext.jsx';
 import { CartProvider } from './contexts/CartProductContext.jsx';
 import { DetailProductPage } from './pages/Product/DetailProduct.jsx';
+import { TotalPriceProvider } from './contexts/TotalPriceContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider>
       <DarkModeContextProvider>
         <CartProvider>
-          <RouterProvider router={router} />
+          <TotalPriceProvider>
+            <RouterProvider router={router} />
+          </TotalPriceProvider>
         </CartProvider>
       </DarkModeContextProvider>
     </ThemeProvider>

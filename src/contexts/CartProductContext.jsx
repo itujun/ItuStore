@@ -49,6 +49,11 @@ function cartReducer(state, action) {
       }
       return state;
 
+    case 'DELETE_ALL_CART':
+      // Menghapus semua item dari keranjang
+      localStorage.removeItem('cart');
+      return { ...state, data: [] };
+
     default:
       return state;
   }
