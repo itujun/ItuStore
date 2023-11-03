@@ -1,11 +1,16 @@
 import { Tooltip, Typography } from '@material-tailwind/react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DarkModeContext } from '../../contexts/DarkModeContext';
 import { ButtonDarkMode } from '../Elements/ButtonDarkMode';
+import { useLogin } from '../../hooks/useLogin';
 
 export const AuthLayout = ({ children, title }) => {
   const [isDarkMode] = useContext(DarkModeContext);
+  const username = useLogin();
+  useEffect(() => {
+    if (username) window.location.href = '/products';
+  }, [username]);
 
   return (
     <div className={`flex flex-col box-border min-h-screen ${isDarkMode === 'dark' ? 'bg-blue-gray-900' : ''}`}>
