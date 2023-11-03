@@ -16,7 +16,7 @@ export function StickyNavbar() {
       <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none opacity-[.9] px-4 py-2 lg:px-12 lg:py-4" color="light-blue" variant="gradient">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Logo />
-          <ButtonDarkMode className="ml-24" />
+          <ButtonDarkMode className="ml-16" />
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
               <CartMenu />
